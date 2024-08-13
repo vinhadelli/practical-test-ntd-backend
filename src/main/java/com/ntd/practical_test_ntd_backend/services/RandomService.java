@@ -45,7 +45,7 @@ public class RandomService {
     // Function to get a random generated string from Random.org.
     // Parameter: {length} - Must be within the [1, 32] range. All strings will be of the same length.
     // Parameter: {userId} - The ID of the User requesting the operation.
-    // Returns: The generated Random String.
+    // Returns: String - The generated Random String.
     public String generateRandomString(int length, Long userId) throws NetworkException
     {
         JsonObject request = prepareRequest(length);
@@ -74,7 +74,7 @@ public class RandomService {
 
     // Function to parse the response and get the returned random string.
     // Parameter: {response} - The response received from the API
-    // Returns: The generated Random String.
+    // Returns: String - The generated Random String.
     private String getResultingString(JsonObject response) {
         JsonArray data = response.get("result").getAsJsonObject().get("random").getAsJsonObject().get("data").getAsJsonArray();
 		
@@ -83,7 +83,7 @@ public class RandomService {
 
     // Prepare the request with the predefined parameters of the random string
     // Parameter: {length} - Must be within the [1, 32] range. All strings will be of the same length.
-    // Returns: The request with all the necessary parameters.
+    // Returns: JsonObject - The request with all the necessary parameters.
     public JsonObject prepareRequest(int length)
     {
         JsonObject request = new JsonObject();
@@ -105,7 +105,7 @@ public class RandomService {
 
     // Function to send the request to de Random.org API. It creates the connection, send the request and parse the result.
     // Parameter: {request} - The request the will be sent to the Random.org API.
-    // Returns: The JsonObject of the response from the API.
+    // Returns: JsonObject - The JsonObject of the response from the API.
     // Throws: NetworkException - A custom exception containing the Status Code and the Error Message returned from the API.
     // Throws: MalformedURLException
     // Throws: IOException
