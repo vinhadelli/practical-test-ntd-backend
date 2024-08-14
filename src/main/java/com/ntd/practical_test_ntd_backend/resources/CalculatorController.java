@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ntd.practical_test_ntd_backend.Auth.AuthUtils;
+import com.ntd.practical_test_ntd_backend.auth.AuthUtils;
 import com.ntd.practical_test_ntd_backend.dto.CalculatorDTO;
 import com.ntd.practical_test_ntd_backend.services.CalculatorService;
 

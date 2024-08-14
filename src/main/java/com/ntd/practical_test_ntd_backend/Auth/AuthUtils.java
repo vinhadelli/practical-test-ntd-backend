@@ -1,4 +1,4 @@
-package com.ntd.practical_test_ntd_backend.Auth;
+package com.ntd.practical_test_ntd_backend.auth;
 
 public class AuthUtils {
     public static Long getLoggedUserId()

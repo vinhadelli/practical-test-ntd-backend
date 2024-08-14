@@ -1,9 +1,14 @@
 package com.ntd.practical_test_ntd_backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ntd.practical_test_ntd_backend.dto.TokenDTO;
+import com.ntd.practical_test_ntd_backend.dto.UserDTO;
 import com.ntd.practical_test_ntd_backend.entities.Operation;
 import com.ntd.practical_test_ntd_backend.entities.Record;
 import com.ntd.practical_test_ntd_backend.entities.User;
@@ -20,6 +25,12 @@ public class UserService {
     private IRecordRepository recordRepository;
     @Autowired
     private IOperationRepository operationRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtService jwtService;
 
     private Double createdUserCredits = 20.0;
 
@@ -39,11 +50,31 @@ public class UserService {
         return userRepository.findByUsername(username).orElse(null);
     }
 
+    public TokenDTO login(UserDTO input) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        input.getUsername(),
+                        input.getPassword()
+                )
+        );
+
+        User user = getByUsername(input.getUsername());
+
+        String jwtToken = jwtService.generateToken(user);
+
+        return new TokenDTO(jwtToken, jwtService.getExpirationTime());
+    }
+
     // Function to create a new User. The new User is created with the default balace of 20 credits and it's active by default.
-    // Parameter: {user} - An user object containing the username and the hash of the password.
+    // Parameter: {user} - An UserDTO object containing the username and the the password of the user.
     @Transactional
-    public void createUser(User user)
+    public void createUser(UserDTO input)
     {
+        User user = new User();
+        user.setUsername(input.getUsername());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setStatus(true);
+
         userRepository.save(user);
         addBalance(user, this.createdUserCredits);
     }

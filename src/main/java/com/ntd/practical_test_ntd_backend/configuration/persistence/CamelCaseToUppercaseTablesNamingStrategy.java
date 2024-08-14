@@ -1,4 +1,4 @@
-package com.ntd.practical_test_ntd_backend.configuration;
+package com.ntd.practical_test_ntd_backend.configuration.persistence;
 
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.Identifier;
