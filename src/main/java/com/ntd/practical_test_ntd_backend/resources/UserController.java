@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
     @Autowired
 
-    @RequestMapping(value = "/auth/sigup", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity CreateUser(UserDTO user)
     {
         try {
@@ -44,9 +44,13 @@ public class UserController {
     }
 
     @GetMapping("/user/balance")
-    public Double GetUserBalance()
+    public ResponseEntity GetUserBalance()
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        return userService.getUserBalance(userId);
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            return ResponseEntity.ok(userService.getUserBalance(userId));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

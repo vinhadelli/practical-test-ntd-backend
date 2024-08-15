@@ -1,6 +1,7 @@
 package com.ntd.practical_test_ntd_backend.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,9 +14,14 @@ public class RandomController {
     private RandomService randomService;
 
     @GetMapping("/random")
-    public String getRandomString(int length)
+    public ResponseEntity<String> getRandomString(int length)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        return randomService.generateRandomString(length, userId);
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            String result = randomService.generateRandomString(length, userId);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

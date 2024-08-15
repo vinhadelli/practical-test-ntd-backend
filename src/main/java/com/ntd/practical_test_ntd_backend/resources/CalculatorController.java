@@ -1,6 +1,9 @@
 package com.ntd.practical_test_ntd_backend.resources;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,33 +18,63 @@ public class CalculatorController {
     private CalculatorService calculatorService;
 
     @RequestMapping(value = "/calculator/add", method = RequestMethod.POST, produces="application/json")
-    public void Add(CalculatorDTO request)
+    public ResponseEntity Add(CalculatorDTO request)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        calculatorService.Addition(userId, request.getNumber1(), request.getNumber2());
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            BigDecimal result = calculatorService.Addition(userId, request.getNumber1(), request.getNumber2());
+            return ResponseEntity.ok(result);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
     @RequestMapping(value = "/calculator/subtract", method = RequestMethod.POST, produces="application/json")
-    public void Subtract(CalculatorDTO request)
+    public ResponseEntity Subtract(CalculatorDTO request)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        calculatorService.Subtraction(userId, request.getNumber1(), request.getNumber2());
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            BigDecimal result = calculatorService.Subtraction(userId, request.getNumber1(), request.getNumber2());
+            return ResponseEntity.ok(result);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
     @RequestMapping(value = "/calculator/divide", method = RequestMethod.POST, produces="application/json")
-    public void Divide(CalculatorDTO request)
+    public ResponseEntity Divide(CalculatorDTO request)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        calculatorService.Division(userId, request.getNumber1(), request.getNumber2());
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            BigDecimal result = calculatorService.Division(userId, request.getNumber1(), request.getNumber2());
+            return ResponseEntity.ok(result);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
     @RequestMapping(value = "/calculator/multiply", method = RequestMethod.POST, produces="application/json")
-    public void Multiply(CalculatorDTO request)
+    public ResponseEntity Multiply(CalculatorDTO request)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        calculatorService.Multiplication(userId, request.getNumber1(), request.getNumber2());
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            BigDecimal result = calculatorService.Multiplication(userId, request.getNumber1(), request.getNumber2());
+            return ResponseEntity.ok(result);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
     @RequestMapping(value = "/calculator/squareroot", method = RequestMethod.POST, produces="application/json")
-    public void SquareRoot(CalculatorDTO request)
+    public ResponseEntity SquareRoot(CalculatorDTO request)
     {
-        Long userId = AuthUtils.getLoggedUserId();
-        calculatorService.SquareRoot(userId, request.getNumber1());
+        try {
+            Long userId = AuthUtils.getLoggedUserId();
+            BigDecimal result = calculatorService.SquareRoot(userId, request.getNumber1());
+            return ResponseEntity.ok(result);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }
