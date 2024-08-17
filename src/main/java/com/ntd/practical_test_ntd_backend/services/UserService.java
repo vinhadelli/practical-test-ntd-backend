@@ -1,6 +1,9 @@
 package com.ntd.practical_test_ntd_backend.services;
 
+import com.ntd.practical_test_ntd_backend.exception.RecordNotFoundException;
+import com.ntd.practical_test_ntd_backend.exception.UsernameAlreadyExistFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,8 +68,8 @@ public class UserService {
         return new TokenDTO(jwtToken, jwtService.getExpirationTime());
     }
 
-    // Function to create a new User. The new User is created with the default balace of 20 credits and it's active by default.
-    // Parameter: {user} - An UserDTO object containing the username and the the password of the user.
+    // Function to create a new User. The new User is created with the default balance of 20 credits, and it's active by default.
+    // Parameter: {user} - An UserDTO object containing the username and the password of the user.
     @Transactional
     public void createUser(UserDTO input)
     {
@@ -75,7 +78,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setStatus(true);
 
-        userRepository.save(user);
+        try{
+            userRepository.save(user);
+        }
+        catch (DataIntegrityViolationException e)
+        {
+            throw new UsernameAlreadyExistFoundException();
+        }
         addBalance(user, this.createdUserCredits);
     }
 
@@ -85,7 +94,10 @@ public class UserService {
     public Double getUserBalance(Long userId)
     {
         Record record = recordRepository.findTopByOrderByCreationDate(userId);
-        return record.getUserBalance();
+        if(record != null)
+            return record.getUserBalance();
+        else
+            throw new RecordNotFoundException();
     }
 
     // Function to add an amount of credits to a user.
@@ -94,6 +106,16 @@ public class UserService {
     public void addBalance(User user, Double amount)
     {
         Operation operation = operationRepository.findByType(OperationTypesEnum.ADD_CREDITS.Value);
-        recordRepository.save(new Record(operation, user, amount, getUserBalance(user.getId()), "CREDITS ADDED SUCCESSFULLY"));
+        Record record = new Record(operation, user, amount, getUserBalance(user.getId()), "CREDITS ADDED SUCCESSFULLY");
+        recordRepository.save(record);
+    }
+
+    // Function to add the default amount of credits to a new user.
+    // Parameter: {user} - User to receive the deposit.
+    public void addBalanceToNewUser(User user)
+    {
+        Operation operation = operationRepository.findByType(OperationTypesEnum.ADD_CREDITS.Value);
+        Record record = new Record(operation, user, createdUserCredits, createdUserCredits, "CREDITS ADDED SUCCESSFULLY");
+        recordRepository.save(record);
     }
 }

@@ -2,12 +2,7 @@ package com.ntd.practical_test_ntd_backend.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ntd.practical_test_ntd_backend.auth.AuthUtils;
 import com.ntd.practical_test_ntd_backend.dto.TokenDTO;
@@ -15,13 +10,14 @@ import com.ntd.practical_test_ntd_backend.dto.UserDTO;
 import com.ntd.practical_test_ntd_backend.services.UserService;
 
 @RestController
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces="application/json")
-    public ResponseEntity CreateUser(UserDTO user)
+    public ResponseEntity CreateUser(@RequestBody UserDTO user)
     {
         try {
             userService.createUser(user);
@@ -47,7 +43,7 @@ public class UserController {
     public ResponseEntity GetUserBalance()
     {
         try {
-            Long userId = AuthUtils.getLoggedUserId();
+            Long userId = AuthUtils.getLoggedUserId(userService);
             return ResponseEntity.ok(userService.getUserBalance(userId));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

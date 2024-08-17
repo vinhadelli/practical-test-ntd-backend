@@ -2,6 +2,7 @@ package com.ntd.practical_test_ntd_backend.configuration.auth;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,6 +21,7 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilterConfiguration jwtFilterConfiguration;
 
+    @Autowired
     public SecurityConfiguration(
         JwtFilterConfiguration jwtFilterConfiguration,
         AuthenticationProvider authenticationProvider
@@ -51,7 +53,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8080", "https://ec2-3-144-102-2.us-east-2.compute.amazonaws.com:8080"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:5173", "https://ec2-3-144-102-2.us-east-2.compute.amazonaws.com:8080"));
         configuration.setAllowedMethods(List.of("GET","POST"));
         configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
 

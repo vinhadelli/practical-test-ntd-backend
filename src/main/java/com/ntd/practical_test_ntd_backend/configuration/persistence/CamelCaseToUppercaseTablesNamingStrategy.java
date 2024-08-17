@@ -3,7 +3,9 @@ package com.ntd.practical_test_ntd_backend.configuration.persistence;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 // Creating a custom naming scheme for hibernate to set all table and column names to uppercase
 public class CamelCaseToUppercaseTablesNamingStrategy extends CamelCaseToUnderscoresNamingStrategy {
     // Set name to uppercase
