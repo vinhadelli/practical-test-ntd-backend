@@ -37,15 +37,15 @@ public class UserService {
 
     private Double createdUserCredits = 20.0;
 
-    // Function to find a user by it's ID.
-    // Parameter: {id} - Id of the User.
+    // Function to find a user by its ID.
+    // Parameter: {id} - ID of the User.
     // Returns: User - The User returned by the repository or null, if it doesn't exist.
     public User getUser(Long id)
     {
         return userRepository.findById(id).orElse(null);
     }
 
-    // Function to find a user by it's username
+    // Function to find a user by its username
     // Parameter: {username} - Username/Email of the User.
     // Returns: User - The User returned by the repository or null, if it doesn't exist.
     public User getByUsername(String username)
@@ -85,7 +85,7 @@ public class UserService {
         {
             throw new UsernameAlreadyExistFoundException();
         }
-        addBalance(user, this.createdUserCredits);
+        addBalanceToNewUser(user);
     }
 
     // Function to get the updated balance of the user. It queries the records table.

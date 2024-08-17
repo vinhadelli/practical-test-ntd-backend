@@ -2,6 +2,7 @@ package com.ntd.practical_test_ntd_backend.configuration.auth;
 
 import java.io.IOException;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -74,7 +75,13 @@ public class JwtFilterConfiguration extends OncePerRequestFilter {
             }
 
             filterChain.doFilter(request, response);
-        } catch (Exception exception) {
+        }
+        catch(ExpiredJwtException ex)
+        {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        catch (Exception exception) {
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }

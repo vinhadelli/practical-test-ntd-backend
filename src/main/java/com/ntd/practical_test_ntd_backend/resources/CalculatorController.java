@@ -2,19 +2,18 @@ package com.ntd.practical_test_ntd_backend.resources;
 
 import java.math.BigDecimal;
 
+import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.ntd.practical_test_ntd_backend.auth.AuthUtils;
+import com.ntd.practical_test_ntd_backend.utils.AuthUtils;
 import com.ntd.practical_test_ntd_backend.dto.CalculatorDTO;
 import com.ntd.practical_test_ntd_backend.services.CalculatorService;
 
 @RestController
+@CrossOrigin
 public class CalculatorController {
     @Autowired
     private CalculatorService calculatorService;
@@ -29,7 +28,10 @@ public class CalculatorController {
             BigDecimal result = calculatorService.Addition(userId, request.getNumber1(), request.getNumber2());
             return ResponseEntity.ok(result);
 
-        } catch (Exception e) {
+        } catch (InsufficientBalance e) {
+            return ResponseEntity.badRequest().body("Insufficient balance on account!");
+        }
+        catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
@@ -41,7 +43,10 @@ public class CalculatorController {
             BigDecimal result = calculatorService.Subtraction(userId, request.getNumber1(), request.getNumber2());
             return ResponseEntity.ok(result);
 
-        } catch (Exception e) {
+        } catch (InsufficientBalance e) {
+            return ResponseEntity.badRequest().body("Insufficient balance on account!");
+        }
+        catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
@@ -53,7 +58,10 @@ public class CalculatorController {
             BigDecimal result = calculatorService.Division(userId, request.getNumber1(), request.getNumber2());
             return ResponseEntity.ok(result);
 
-        } catch (Exception e) {
+        } catch (InsufficientBalance e) {
+            return ResponseEntity.badRequest().body("Insufficient balance on account!");
+        }
+        catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
@@ -65,7 +73,10 @@ public class CalculatorController {
             BigDecimal result = calculatorService.Multiplication(userId, request.getNumber1(), request.getNumber2());
             return ResponseEntity.ok(result);
 
-        } catch (Exception e) {
+        } catch (InsufficientBalance e) {
+            return ResponseEntity.badRequest().body("Insufficient balance on account!");
+        }
+        catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
@@ -77,7 +88,10 @@ public class CalculatorController {
             BigDecimal result = calculatorService.SquareRoot(userId, request.getNumber1());
             return ResponseEntity.ok(result);
 
-        } catch (Exception e) {
+        } catch (InsufficientBalance e) {
+            return ResponseEntity.badRequest().body("Insufficient balance on account!");
+        }
+        catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }

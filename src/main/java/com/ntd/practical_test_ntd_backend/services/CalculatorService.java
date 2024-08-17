@@ -6,17 +6,15 @@ import com.ntd.practical_test_ntd_backend.entities.User;
 import com.ntd.practical_test_ntd_backend.enums.OperationTypesEnum;
 import com.ntd.practical_test_ntd_backend.exception.DividedByZeroException;
 import com.ntd.practical_test_ntd_backend.exception.NegativeSquareRootException;
+import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IOperationRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IRecordRepository;
-import com.ntd.practical_test_ntd_backend.persistence.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-
-import static java.lang.Math.sqrt;
 
 @Service
 public class CalculatorService {
@@ -101,6 +99,8 @@ public class CalculatorService {
         Operation operation = operationRepository.findByType(type.Value);
         User user = userService.getUser(userId);
         Double remainingBalance = userService.getUserBalance(userId) - operation.getCost();
+        if(remainingBalance > 0)
+            throw new InsufficientBalance();
         recordRepository.save(new Record(operation, user, operation.getCost(), remainingBalance, message));
     }
 }

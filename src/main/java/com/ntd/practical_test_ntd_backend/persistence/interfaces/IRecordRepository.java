@@ -15,6 +15,14 @@ public interface IRecordRepository extends JpaRepository<Record, Long>
     @Query("select r from Record r where r.user.id = ?1 order by r.creationDate desc")
     Record findTopByOrderByCreationDate (Long userId);
     // Gets all the records of the user that are not deleted.
-    @Query("select r from Record r where r.user.id = ?1 and r.deletionDate = null order by r.creationDate desc")
-    Page<Record> findByUser (Long userId, Pageable pageable);
+    @Query("select r from Record r where r.user.id = ?1 and r.deletionDate = null")
+    Page<Record> findByUser(Long userId, Pageable pageable);
+    // Gets all the records of the user that are not deleted.
+    @Query("select r from Record r where r.user.id = ?1 and r.operationResponse like concat('%',?2,'%') and r.deletionDate = null")
+    Page<Record> findByUserWithSearch(Long userId, String search, Pageable pageable);
+    // Gets all the records of the user that are not deleted.
+    @Query("select r from Record r where r.user.id = ?1 and r.operation.type = ?2 and r.deletionDate = null")
+    Page<Record> findByUserWithOperation(Long userId, int operationType, Pageable pageable);
+    @Query("select r from Record r where r.user.id = ?1 and r.operation.type = ?2 and r.operationResponse like concat('%',?3,'%') and r.deletionDate = null")
+    Page<Record> findByUserWithSearchAndOperation(Long userId, int operationType, String search, Pageable pageable);
 }
