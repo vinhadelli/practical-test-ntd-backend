@@ -93,7 +93,7 @@ public class UserService {
     // Returns: Double - The User's balace. 
     public Double getUserBalance(Long userId)
     {
-        Record record = recordRepository.findTopByOrderByCreationDate(userId);
+        Record record = recordRepository.findTopByUserIdOrderByCreationDateDesc(userId);
         if(record != null)
             return record.getUserBalance();
         else

@@ -56,7 +56,7 @@ public class RecordService {
                 OperationUtils.getNameOfOperation(record.getOperation().getType()), record.getAmount(),
                 record.getUserBalance(),
                 record.getOperationResponse(),
-                record.getCreationDate()));;
+                record.getCreationDate()));
     }
 
     // Function to soft-delete the received record.

@@ -15,7 +15,6 @@ import com.ntd.practical_test_ntd_backend.persistence.interfaces.IUserRepository
 
 @Configuration
 public class AuthConfiguration {
-    @Autowired
     private final IUserRepository userRepository;
 
     public AuthConfiguration(IUserRepository userRepository) {
