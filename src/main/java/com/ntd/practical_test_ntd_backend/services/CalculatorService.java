@@ -61,7 +61,7 @@ public class CalculatorService {
         if(b.compareTo(BigDecimal.ZERO) == 0)
             throw new DividedByZeroException();
         BigDecimal result = a.divide(b);
-        ProcessOperation(OperationTypesEnum.DIVISION, userId, String.format("DIV: %g = %g - %g", result, a, b));
+        ProcessOperation(OperationTypesEnum.DIVISION, userId, String.format("DIV: %g = %g / %g", result, a, b));
         return result;
     }
     //Function to Multiply two numbers and subtract the cost of the operation from the received user balance.
@@ -73,7 +73,7 @@ public class CalculatorService {
     public BigDecimal Multiplication (Long userId, BigDecimal a, BigDecimal b)
     {
         BigDecimal result = a.multiply(b);
-        ProcessOperation(OperationTypesEnum.MULTIPLICATION, userId, String.format("MULT: %g = %g - %g", result, a, b));
+        ProcessOperation(OperationTypesEnum.MULTIPLICATION, userId, String.format("MULT: %g = %g * %g", result, a, b));
         return result;
     }
     // Function to take the SquareRoot of a number and subtract the cost of the operation from the received user balance,

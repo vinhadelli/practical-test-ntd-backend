@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -66,8 +67,8 @@ public class RandomService {
         result = getResultingString(response);
         if(result != null)
         {
-            // Process the sucessful operation
-            ProcessOperation(OperationTypesEnum.GENERATE_STRING, userId, String.format("Generated String: {0}", result));
+            // Process the successful operation
+            ProcessOperation(OperationTypesEnum.GENERATE_STRING, userId, String.format("Generated String: %s", result));
         }
         return result;
     }
@@ -157,6 +158,8 @@ public class RandomService {
         Operation operation = operationRepository.findByType(type.Value);
         User user = userService.getUser(userId);
         Double remainingBalance = userService.getUserBalance(userId) - operation.getCost();
+        if(remainingBalance < 0)
+            throw new InsufficientBalance();
         recordRepository.save(new Record(operation, user, operation.getCost(), remainingBalance, message));
     }
 }

@@ -1,4 +1,4 @@
-package com.ntd.practical_test_ntd_backend.resources;
+package com.ntd.practical_test_ntd_backend.resources.v1;
 
 import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.services.UserService;
@@ -20,7 +20,7 @@ public class RandomController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/random/{length}")
+    @GetMapping("/v1/random/{length}")
     public ResponseEntity<String> getRandomString(@PathVariable int length)
     {
         try {

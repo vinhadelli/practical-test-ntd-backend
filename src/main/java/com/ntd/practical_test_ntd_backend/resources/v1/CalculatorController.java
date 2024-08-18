@@ -1,4 +1,4 @@
-package com.ntd.practical_test_ntd_backend.resources;
+package com.ntd.practical_test_ntd_backend.resources.v1;
 
 import java.math.BigDecimal;
 
@@ -20,7 +20,7 @@ public class CalculatorController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/calculator/add", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/calculator/add", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Add(@RequestBody CalculatorDTO request)
     {
         try {
@@ -35,7 +35,7 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-    @RequestMapping(value = "/calculator/subtract", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/calculator/subtract", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Subtract(@RequestBody CalculatorDTO request)
     {
         try {
@@ -50,7 +50,7 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-    @RequestMapping(value = "/calculator/divide", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/calculator/divide", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Divide(@RequestBody CalculatorDTO request)
     {
         try {
@@ -65,7 +65,7 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-    @RequestMapping(value = "/calculator/multiply", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/calculator/multiply", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Multiply(@RequestBody CalculatorDTO request)
     {
         try {
@@ -80,7 +80,7 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-    @RequestMapping(value = "/calculator/squareroot", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/calculator/squareroot", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity SquareRoot(@RequestBody CalculatorDTO request)
     {
         try {

@@ -1,4 +1,4 @@
-package com.ntd.practical_test_ntd_backend.resources;
+package com.ntd.practical_test_ntd_backend.resources.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/v1/auth/signup", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity CreateUser(@RequestBody UserDTO user)
     {
         try {
@@ -26,7 +26,7 @@ public class UserController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/v1/auth/login")
     public ResponseEntity login(@RequestBody UserDTO loginUserDto) 
     {
         TokenDTO token;
@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok(token);
     }
 
-    @GetMapping("/user/balance")
+    @GetMapping("/v1/user/balance")
     public ResponseEntity GetUserBalance()
     {
         try {

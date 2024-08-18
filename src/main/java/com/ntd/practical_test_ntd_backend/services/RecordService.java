@@ -29,11 +29,16 @@ public class RecordService {
     // Returns: Page<Record> - Page of Records.
     public Page<RecordDTO> getUserRecords(Long userId, int page, int pageItemCount, String sortBy, String direction, String search, int operationType)
     {
-        sortBy = (sortBy == null || sortBy.equals("")) ? "creationDate" : sortBy;
-        Sort sort = Sort.by(Sort.Direction.valueOf(direction), sortBy);
+        sortBy = parseSortParameters(sortBy == null ? "" : sortBy);
+        if(direction == null)
+        {
+            direction = "desc";
+        }
+        Sort.Direction direct = direction.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
         Pageable pageable = PageRequest.of(page, pageItemCount, sort);
         Page<Record> result;
-        if(search != null && !search.equals(""))
+        if(search != null && !search.isEmpty())
         {
             if (operationType != 0)
             {
@@ -50,6 +55,7 @@ public class RecordService {
         }
         else
         {
+//            result = recordRepository.findAll(pageable);
             result = recordRepository.findByUser(userId,pageable);
         }
         return result.map(record -> new RecordDTO(record.getId(),
@@ -57,6 +63,18 @@ public class RecordService {
                 record.getUserBalance(),
                 record.getOperationResponse(),
                 record.getCreationDate()));
+    }
+
+    private String parseSortParameters(String sortBy) {
+        switch (sortBy)
+        {
+            case "result":
+                return "operationResponse";
+            case "operation":
+                return "operation";
+            default:
+                return "creationDate";
+        }
     }
 
     // Function to soft-delete the received record.

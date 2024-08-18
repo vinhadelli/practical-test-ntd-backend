@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class RecordRequestDTO {
-    private int page;
+    private int pageNumber;
     private int pageItemCount;
     private String sortBy;
     private String sortDirection;

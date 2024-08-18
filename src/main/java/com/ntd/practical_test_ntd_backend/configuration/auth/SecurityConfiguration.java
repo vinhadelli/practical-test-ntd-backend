@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/auth/*").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/*/auth/*").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

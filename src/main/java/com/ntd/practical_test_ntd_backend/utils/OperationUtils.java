@@ -10,6 +10,7 @@ public class OperationUtils {
             case 4 -> "Division";
             case 5 -> "Square Root";
             case 6 -> "String Generation";
+            case 7 -> "Added Credits";
             default -> "";
         };
     }
