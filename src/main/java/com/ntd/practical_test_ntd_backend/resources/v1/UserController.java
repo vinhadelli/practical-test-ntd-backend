@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import com.ntd.practical_test_ntd_backend.utils.AuthUtils;
 import com.ntd.practical_test_ntd_backend.dto.TokenDTO;
 import com.ntd.practical_test_ntd_backend.dto.UserDTO;
-import com.ntd.practical_test_ntd_backend.services.UserService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
 
 @RestController
 @CrossOrigin
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @RequestMapping(value = "/v1/auth/signup", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity CreateUser(@RequestBody UserDTO user)

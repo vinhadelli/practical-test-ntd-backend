@@ -1,7 +1,7 @@
 package com.ntd.practical_test_ntd_backend;
 
-import com.ntd.practical_test_ntd_backend.entities.User;
 import com.ntd.practical_test_ntd_backend.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

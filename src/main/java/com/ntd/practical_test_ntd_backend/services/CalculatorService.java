@@ -16,11 +16,13 @@ import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.exception.NegativeSquareRootException;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IOperationRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IRecordRepository;
+import com.ntd.practical_test_ntd_backend.services.interfaces.ICalculatorService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
 
 @Service
-public class CalculatorService {
+public class CalculatorService implements ICalculatorService {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @Autowired
     private IRecordRepository recordRepository;
     @Autowired

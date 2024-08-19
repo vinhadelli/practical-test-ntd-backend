@@ -1,7 +1,7 @@
 package com.ntd.practical_test_ntd_backend.resources.v1;
 
 import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
-import com.ntd.practical_test_ntd_backend.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ntd.practical_test_ntd_backend.utils.AuthUtils;
-import com.ntd.practical_test_ntd_backend.services.RandomService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IRandomService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
 
 @RestController
 @CrossOrigin
 public class RandomController {
     @Autowired
-    private RandomService randomService;
+    private IRandomService randomService;
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @GetMapping("/v1/random/{length}")
     public ResponseEntity<String> getRandomString(@PathVariable int length)

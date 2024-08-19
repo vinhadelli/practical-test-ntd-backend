@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IRandomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,16 @@ import com.ntd.practical_test_ntd_backend.entities.Operation;
 import com.ntd.practical_test_ntd_backend.entities.Record;
 import com.ntd.practical_test_ntd_backend.entities.User;
 import com.ntd.practical_test_ntd_backend.enums.OperationTypesEnum;
+import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.exception.NetworkException;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IOperationRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IRecordRepository;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
 
 @Service
-public class RandomService {
+public class RandomService implements IRandomService {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @Autowired
     private IRecordRepository recordRepository;
     @Autowired
@@ -85,7 +87,7 @@ public class RandomService {
     // Prepare the request with the predefined parameters of the random string
     // Parameter: {length} - Must be within the [1, 32] range. All strings will be of the same length.
     // Returns: JsonObject - The request with all the necessary parameters.
-    public JsonObject prepareRequest(int length)
+    private JsonObject prepareRequest(int length)
     {
         JsonObject request = new JsonObject();
         

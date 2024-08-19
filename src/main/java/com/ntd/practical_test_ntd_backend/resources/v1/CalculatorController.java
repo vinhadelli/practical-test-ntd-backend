@@ -2,23 +2,27 @@ package com.ntd.practical_test_ntd_backend.resources.v1;
 
 import java.math.BigDecimal;
 
-import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
-import com.ntd.practical_test_ntd_backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.ntd.practical_test_ntd_backend.utils.AuthUtils;
 import com.ntd.practical_test_ntd_backend.dto.CalculatorDTO;
-import com.ntd.practical_test_ntd_backend.services.CalculatorService;
+import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
+import com.ntd.practical_test_ntd_backend.services.interfaces.ICalculatorService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
+import com.ntd.practical_test_ntd_backend.utils.AuthUtils;
 
 @RestController
 @CrossOrigin
 public class CalculatorController {
     @Autowired
-    private CalculatorService calculatorService;
+    private ICalculatorService calculatorService;
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @RequestMapping(value = "/v1/calculator/add", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Add(@RequestBody CalculatorDTO request)

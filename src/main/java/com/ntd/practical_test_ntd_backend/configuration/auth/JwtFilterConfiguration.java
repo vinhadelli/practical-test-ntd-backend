@@ -2,9 +2,7 @@ package com.ntd.practical_test_ntd_backend.configuration.auth;
 
 import java.io.IOException;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,8 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import com.ntd.practical_test_ntd_backend.services.JwtService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IJwtService;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,12 +27,12 @@ public class JwtFilterConfiguration extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Autowired
-    private final JwtService jwtService;
+    private final IJwtService jwtService;
     @Autowired
     private final UserDetailsService userDetailsService;
 
     public JwtFilterConfiguration(
-        JwtService authService,
+        IJwtService authService,
         UserDetailsService userDetailsService,
         HandlerExceptionResolver handlerExceptionResolver
     ) {

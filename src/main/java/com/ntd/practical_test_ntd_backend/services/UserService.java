@@ -1,7 +1,5 @@
 package com.ntd.practical_test_ntd_backend.services;
 
-import com.ntd.practical_test_ntd_backend.exception.RecordNotFoundException;
-import com.ntd.practical_test_ntd_backend.exception.UsernameAlreadyExistFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,12 +14,16 @@ import com.ntd.practical_test_ntd_backend.entities.Operation;
 import com.ntd.practical_test_ntd_backend.entities.Record;
 import com.ntd.practical_test_ntd_backend.entities.User;
 import com.ntd.practical_test_ntd_backend.enums.OperationTypesEnum;
+import com.ntd.practical_test_ntd_backend.exception.RecordNotFoundException;
+import com.ntd.practical_test_ntd_backend.exception.UsernameAlreadyExistFoundException;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IOperationRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IRecordRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IUserRepository;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IJwtService;
+import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -33,7 +35,7 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private JwtService jwtService;
+    private IJwtService jwtService;
 
     private Double createdUserCredits = 20.0;
 
