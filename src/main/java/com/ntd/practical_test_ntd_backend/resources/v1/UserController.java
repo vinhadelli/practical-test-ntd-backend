@@ -15,6 +15,11 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * Creates a new User and gives it the default value of credits.
+     * @param user UserDTO
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/auth/signup", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity CreateUser(@RequestBody UserDTO user)
     {
@@ -26,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(true);
     }
 
+    /**
+     * Login function
+     * @param loginUserDto UserDTO
+     * @return ResponseEntity
+     */
     @PostMapping("/v1/auth/login")
     public ResponseEntity login(@RequestBody UserDTO loginUserDto) 
     {
@@ -38,6 +48,10 @@ public class UserController {
         return ResponseEntity.ok(token);
     }
 
+    /**
+     * Returns the user balance
+     * @return ResponseEntity
+     */
     @GetMapping("/v1/user/balance")
     public ResponseEntity GetUserBalance()
     {

@@ -35,6 +35,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    // Configures the authentication. Some of its parameters includes CORS, CSRF, Anonimous Endpoints, Session and hte Filter class
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
@@ -51,6 +52,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    // Configures the CORS.
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 

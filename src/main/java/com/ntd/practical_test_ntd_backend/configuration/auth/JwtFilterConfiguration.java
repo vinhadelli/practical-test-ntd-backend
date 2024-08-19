@@ -42,6 +42,7 @@ public class JwtFilterConfiguration extends OncePerRequestFilter {
     }
 
     @Override
+    // Filter the incoming request. Ensures that the token is present and valid
     protected void doFilterInternal(
         @NonNull HttpServletRequest request,
         @NonNull HttpServletResponse response,

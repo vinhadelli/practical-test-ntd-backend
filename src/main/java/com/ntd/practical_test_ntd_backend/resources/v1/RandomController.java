@@ -21,6 +21,11 @@ public class RandomController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * Receives a lenght for the generated string, gets the string from the random.org API, debits the cost of the operation from the user balance and return the result.
+     * @param length int
+     * @return ResposneEntity<String>
+     */
     @GetMapping("/v1/random/{length}")
     public ResponseEntity<String> getRandomString(@PathVariable int length)
     {

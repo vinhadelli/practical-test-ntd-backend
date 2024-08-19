@@ -1,12 +1,10 @@
 package com.ntd.practical_test_ntd_backend.dto;
 
-import com.ntd.practical_test_ntd_backend.enums.OperationTypesEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor

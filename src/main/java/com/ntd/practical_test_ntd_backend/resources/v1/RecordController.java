@@ -20,6 +20,11 @@ public class RecordController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * Returns the records from the user. Supports filter, sort and search.
+     * @param request RecordRequestDTO
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/record", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity GetUserRecords(@RequestBody RecordRequestDTO request)
     {
@@ -32,6 +37,11 @@ public class RecordController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    /**
+     * Soft Deletes the user record.
+     * @param id Long
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/record/{id}", method = RequestMethod.DELETE, produces="application/json")
     public ResponseEntity DeleteUserRecord(@PathVariable Long id)
     {

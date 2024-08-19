@@ -37,11 +37,12 @@ public class UserService implements IUserService {
     @Autowired
     private IJwtService jwtService;
 
-    private Double createdUserCredits = 20.0;
+    private final Double createdUserCredits = 20.0;
 
     // Function to find a user by its ID.
     // Parameter: {id} - ID of the User.
     // Returns: User - The User returned by the repository or null, if it doesn't exist.
+    @Override
     public User getUser(Long id)
     {
         return userRepository.findById(id).orElse(null);
@@ -50,11 +51,13 @@ public class UserService implements IUserService {
     // Function to find a user by its username
     // Parameter: {username} - Username/Email of the User.
     // Returns: User - The User returned by the repository or null, if it doesn't exist.
+    @Override
     public User getByUsername(String username)
     {
         return userRepository.findByUsername(username).orElse(null);
     }
 
+    @Override
     public TokenDTO login(UserDTO input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -73,6 +76,7 @@ public class UserService implements IUserService {
     // Function to create a new User. The new User is created with the default balance of 20 credits, and it's active by default.
     // Parameter: {user} - An UserDTO object containing the username and the password of the user.
     @Transactional
+    @Override
     public void createUser(UserDTO input)
     {
         User user = new User();
@@ -93,6 +97,7 @@ public class UserService implements IUserService {
     // Function to get the updated balance of the user. It queries the records table.
     // Parameter: {userId} - Id of the user to be queried.
     // Returns: Double - The User's balace. 
+    @Override
     public Double getUserBalance(Long userId)
     {
         Record record = recordRepository.findTopByUserIdOrderByCreationDateDesc(userId);
@@ -105,6 +110,7 @@ public class UserService implements IUserService {
     // Function to add an amount of credits to a user.
     // Parameter: {user} - User to receive the deposit.
     // Parameter: {amount} - The amount to be credited for the user.
+    @Override
     public void addBalance(User user, Double amount)
     {
         Operation operation = operationRepository.findByType(OperationTypesEnum.ADD_CREDITS.Value);
@@ -114,6 +120,7 @@ public class UserService implements IUserService {
 
     // Function to add the default amount of credits to a new user.
     // Parameter: {user} - User to receive the deposit.
+    @Override
     public void addBalanceToNewUser(User user)
     {
         Operation operation = operationRepository.findByType(OperationTypesEnum.ADD_CREDITS.Value);

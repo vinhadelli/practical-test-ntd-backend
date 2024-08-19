@@ -49,6 +49,7 @@ public class RandomService implements IRandomService {
     // Parameter: {length} - Must be within the [1, 32] range. All strings will be of the same length.
     // Parameter: {userId} - The ID of the User requesting the operation.
     // Returns: String - The generated Random String.
+    @Override
     public String generateRandomString(int length, Long userId) throws NetworkException
     {
         JsonObject request = prepareRequest(length);

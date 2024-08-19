@@ -31,6 +31,7 @@ public class RecordService implements IRecordService {
     // Parameter: {direction} - Direction of the Sort
     // Parameter: {search} - String to search for in the Operation Results
     // Returns: Page<Record> - Page of Records.
+    @Override
     public Page<RecordDTO> getUserRecords(Long userId, int page, int pageItemCount, String sortBy, String direction, String search, int operationType)
     {
         sortBy = parseSortParameters(sortBy == null ? "" : sortBy);
@@ -39,7 +40,7 @@ public class RecordService implements IRecordService {
             direction = "desc";
         }
         Sort.Direction direct = direction.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
+        Sort sort = Sort.by(direct, sortBy);
         Pageable pageable = PageRequest.of(page, pageItemCount, sort);
         Page<Record> result;
         if(search != null && !search.isEmpty())
@@ -59,7 +60,6 @@ public class RecordService implements IRecordService {
         }
         else
         {
-//            result = recordRepository.findAll(pageable);
             result = recordRepository.findByUser(userId,pageable);
         }
         return result.map(record -> new RecordDTO(record.getId(),
@@ -68,22 +68,19 @@ public class RecordService implements IRecordService {
                 record.getOperationResponse(),
                 record.getCreationDate()));
     }
-
+    // Function to translate the received sortby string to the value in the Records table
     private String parseSortParameters(String sortBy) {
-        switch (sortBy)
-        {
-            case "result":
-                return "operationResponse";
-            case "operation":
-                return "operation";
-            default:
-                return "creationDate";
-        }
+        return switch (sortBy) {
+            case "result" -> "operationResponse";
+            case "amount" -> "amount";
+            default -> "creationDate";
+        };
     }
 
     // Function to soft-delete the received record.
     // Parameter: {recordId} - The ID of the Record to be deleted.
     // Throws: UnexpectedUserException
+    @Override
     public void deleteRecord(Long userId, Long recordId)
     {
         Record record = recordRepository.findById(recordId).orElseThrow(RecordNotFoundException::new);

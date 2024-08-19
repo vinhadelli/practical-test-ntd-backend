@@ -22,22 +22,26 @@ public class AuthConfiguration {
     }
 
     @Bean
+    // Get the User entity, that implements UserDetails, and is used in the authentication process.
     UserDetailsService userDetailsService() {
         return username -> userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
     
     @Bean
+    // Instantiates a new password encoder, used in the authentication process.
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    // Returns the authentication manager
     AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
+    // Configures the authentication provider
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 

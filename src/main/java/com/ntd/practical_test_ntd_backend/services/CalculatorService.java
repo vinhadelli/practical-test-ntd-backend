@@ -34,6 +34,7 @@ public class CalculatorService implements ICalculatorService {
     // Parameter: {b} - Second number of the operation.
     // Returns: BigDecimal - Result of the Operation.
     @Transactional
+    @Override
     public BigDecimal Addition (Long userId, BigDecimal a, BigDecimal b)
     {
         BigDecimal result = a.add(b);
@@ -46,6 +47,7 @@ public class CalculatorService implements ICalculatorService {
     // Parameter: {b} - Second number of the operation.
     // Returns: BigDecimal - Result of the Operation.
     @Transactional
+    @Override
     public BigDecimal Subtraction (Long userId, BigDecimal a, BigDecimal b)
     {
         BigDecimal result = a.subtract(b);
@@ -58,6 +60,7 @@ public class CalculatorService implements ICalculatorService {
     // Parameter: {b} - Second number of the operation.
     // Returns: BigDecimal - Result of the Operation.
     @Transactional
+    @Override
     public BigDecimal Division (Long userId, BigDecimal a, BigDecimal b)
     {
         if(b.compareTo(BigDecimal.ZERO) == 0)
@@ -72,6 +75,7 @@ public class CalculatorService implements ICalculatorService {
     // Parameter: {b} - Second number of the operation.
     // Returns: BigDecimal - Result of the Operation.
     @Transactional
+    @Override
     public BigDecimal Multiplication (Long userId, BigDecimal a, BigDecimal b)
     {
         BigDecimal result = a.multiply(b);
@@ -83,6 +87,7 @@ public class CalculatorService implements ICalculatorService {
     // Parameter: {a} - Number of the operation.
     // Returns: BigDecimal - Result of the Operation.
     @Transactional
+    @Override
     public BigDecimal SquareRoot (Long userId, BigDecimal a)
     {
         if(a.compareTo(BigDecimal.ZERO) < 0)

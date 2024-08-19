@@ -1,6 +1,11 @@
 package com.ntd.practical_test_ntd_backend.utils;
 
 public class OperationUtils {
+    /**
+     * Static Utils function to get the String name of the operation
+     * @param type
+     * @return
+     */
     public static String getNameOfOperation(int type)
     {
         return switch (type) {

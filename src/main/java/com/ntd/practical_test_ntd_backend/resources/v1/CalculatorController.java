@@ -25,6 +25,11 @@ public class CalculatorController {
     private IUserService userService;
 
     @RequestMapping(value = "/v1/calculator/add", method = RequestMethod.POST, produces="application/json")
+    /**
+     * Receives two numbers, sum them, debits the cost of the operation from the user balance and return the result.
+     * @param request CalculatorDTO
+     * @return ResponseEntity
+     */
     public ResponseEntity Add(@RequestBody CalculatorDTO request)
     {
         try {
@@ -39,6 +44,11 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    /**
+     * Receives two numbers, subtract them, debits the cost of the operation from the user balance and return the result.
+     * @param request CalculatorDTO
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/calculator/subtract", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Subtract(@RequestBody CalculatorDTO request)
     {
@@ -54,6 +64,11 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    /**
+     * Receives two numbers, divide them, debits the cost of the operation from the user balance and return the result.
+     * @param request CalculatorDTO
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/calculator/divide", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Divide(@RequestBody CalculatorDTO request)
     {
@@ -69,6 +84,11 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    /**
+     * Receives two numbers, multiply them, debits the cost of the operation from the user balance and return the result.
+     * @param request CalculatorDTO
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "/v1/calculator/multiply", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity Multiply(@RequestBody CalculatorDTO request)
     {
@@ -84,6 +104,11 @@ public class CalculatorController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    /**
+     * Receives one numbers, take its square root, debits the cost of the operation from the user balance and return the result.
+     * @param request CalculatorDTO
+     * @return Response Entity
+     */
     @RequestMapping(value = "/v1/calculator/squareroot", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity SquareRoot(@RequestBody CalculatorDTO request)
     {

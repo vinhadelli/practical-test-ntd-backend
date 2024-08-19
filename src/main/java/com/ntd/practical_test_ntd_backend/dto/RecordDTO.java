@@ -1,6 +1,5 @@
 package com.ntd.practical_test_ntd_backend.dto;
 
-import com.ntd.practical_test_ntd_backend.entities.Operation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
