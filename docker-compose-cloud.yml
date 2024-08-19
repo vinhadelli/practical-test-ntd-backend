@@ -1,0 +1,9 @@
+services:
+  backend:
+    build: &build-definition
+      context: .
+      dockerfile: ./cloud.Dockerfile
+    container_name: ntd_calculator_backend
+    ports:
+      - '8080:8080'
+
