@@ -36,7 +36,7 @@ public class UserController {
      * @param loginUserDto UserDTO
      * @return ResponseEntity
      */
-    @PostMapping("/v1/auth/login")
+    @RequestMapping(value = "/v1/auth/login", method = RequestMethod.POST, produces="application/json")
     public ResponseEntity login(@RequestBody UserDTO loginUserDto) 
     {
         TokenDTO token;

@@ -21,3 +21,6 @@ Execute the command `docker-compose -f docker-compose-cloud.yml up -d`. It will 
 ## Testing the aplication
 
 ### Automated Tests
+
+Ensure that the aplication is poiting to a working database and execute the command `mvn test`. Or use the IDE of your choice to execute the Test Class, I used IntelliJ.
+By default the aplication is poiting to the database in the cloud
