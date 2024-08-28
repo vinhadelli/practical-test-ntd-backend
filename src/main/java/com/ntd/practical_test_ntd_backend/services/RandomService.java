@@ -24,6 +24,8 @@ import com.ntd.practical_test_ntd_backend.entities.User;
 import com.ntd.practical_test_ntd_backend.enums.OperationTypesEnum;
 import com.ntd.practical_test_ntd_backend.exception.InsufficientBalance;
 import com.ntd.practical_test_ntd_backend.exception.NetworkException;
+import com.ntd.practical_test_ntd_backend.exception.ZeroLengthException;
+import com.ntd.practical_test_ntd_backend.exception.NegativeLengthException;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IOperationRepository;
 import com.ntd.practical_test_ntd_backend.persistence.interfaces.IRecordRepository;
 import com.ntd.practical_test_ntd_backend.services.interfaces.IUserService;
@@ -52,6 +54,10 @@ public class RandomService implements IRandomService {
     @Override
     public String generateRandomString(int length, Long userId) throws NetworkException
     {
+        if (length < 0)
+            throw new NegativeLengthException();
+        if (length == 0)
+            throw new ZeroLengthException();
         JsonObject request = prepareRequest(length);
         
         // Send the request
